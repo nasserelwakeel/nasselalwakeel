@@ -5,12 +5,18 @@
   <title>ناصر الوكيل</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Tahoma", Arial, sans-serif;
       background: #f7f9fc;
       text-align: center;
       direction: rtl;
+      font-size: 18px; /* 🔹 تكبير الخط الأساسي */
+      font-weight: 500; /* 🔹 خط متوسط السماكة */
     }
-    h1 { color: #2a5d84; }
+    h1 { 
+      color: #2a5d84; 
+      font-size: 26px;
+      font-weight: bold;
+    }
     table {
       margin: 20px auto;
       border-collapse: collapse;
@@ -18,28 +24,31 @@
     }
     th, td {
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 12px; /* 🔹 زيادة الحشوة لتوسيع الخلايا */
       text-align: center;
       vertical-align: middle;
+      font-size: 17px;
     }
     th {
       background: #2a5d84;
       color: white;
-      font-size: 15px;
+      font-size: 18px;
+      font-weight: bold;
     }
     select {
-      padding: 5px;
-      font-size: 14px;
+      padding: 8px 10px;
+      font-size: 16px;
+      font-weight: bold;
     }
-    .correct { color: green; font-weight: bold; }
-    .wrong { color: red; font-weight: bold; }
-    .explain { font-size: 13px; color: #444; }
+    .correct { color: green; font-weight: bold; font-size: 20px; }
+    .wrong { color: red; font-weight: bold; font-size: 20px; }
+    .explain { font-size: 16px; color: #333; text-align: justify; }
   </style>
 </head>
 <body>
 
-  <h1>🎮 اتدرب على انواع الحسابات</h1>
-  <p>اقرأ الشرح، ثم اختر نوع كل حساب من القائمة، وستظهر علامة ✅ أو ❌ حسب صحتك</p>
+  <h1>🎮 اتدرب على تصنيف الحسابات</h1>
+  <p style="font-size:17px;">📘 اقرأ الشرح، ثم اختر نوع كل حساب من القائمة، وستظهر علامة ✅ أو ❌ حسب صحتك</p>
 
   <table>
     <thead>
@@ -55,7 +64,6 @@
   </table>
 
   <script>
-    // ✅ قائمة الحسابات بترتيب عشوائي ثابت
     const accounts = [
       {name: "المبيعات", type: "إيرادات", explain:"القيمة الناتجة من بيع البضائع."},
       {name: "الأثاث", type: "أصول", explain:"المكاتب والكراسي والتجهيزات."},
@@ -101,7 +109,6 @@
       {name: "مصروفات الهاتف والإنترنت", type: "مصروفات", explain:"تكاليف الاتصالات."},
       {name: "مصروفات تأمين", type: "مصروفات", explain:"تكاليف أقساط التأمين."},
       {name: "مصروفات الإيجار", type: "مصروفات", explain:"تكاليف تأجير المكاتب أو الأماكن."},
-      {name: "فوائد مستحقة الدفع", type: "خصوم", explain:"فوائد قروض لم تُسدد بعد."},
       {name: "احتياطي طوارئ", type: "حقوق ملكية", explain:"احتياطي يستخدم لمواجهة الطوارئ."},
       {name: "الاستثمارات المالية", type: "أصول", explain:"استثمارات في أسهم أو سندات لشركات أخرى."},
       {name: "السندات الحكومية", type: "أصول", explain:"استثمارات في سندات تصدرها الحكومة."},
@@ -114,18 +121,15 @@
     accounts.forEach(acc => {
       const row = document.createElement("tr");
 
-      // اسم الحساب
       const nameCell = document.createElement("td");
       nameCell.textContent = acc.name;
       row.appendChild(nameCell);
 
-      // الشرح
       const explainCell = document.createElement("td");
       explainCell.textContent = acc.explain;
       explainCell.className = "explain";
       row.appendChild(explainCell);
 
-      // قائمة اختيار
       const selectCell = document.createElement("td");
       const select = document.createElement("select");
       const defaultOption = document.createElement("option");
@@ -143,11 +147,9 @@
       selectCell.appendChild(select);
       row.appendChild(selectCell);
 
-      // النتيجة
       const resultCell = document.createElement("td");
       row.appendChild(resultCell);
 
-      // عند اختيار نوع الحساب
       select.addEventListener("change", () => {
         if (select.value === acc.type) {
           resultCell.textContent = "✅";
