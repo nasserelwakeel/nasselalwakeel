@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>🎮 لعبة جدول تصنيف الحسابات</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      text-align: center;
+      direction: rtl;
+    }
+    h1 { color: #2a5d84; }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 95%;
+      table-layout: fixed;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      min-height: 50px;
+      vertical-align: top;
+    }
+    th {
+      background: #2a5d84;
+      color: white;
+      font-size: 18px;
+    }
+    .desc {
+      font-size: 13px;
+      color: #333;
+      background: #eef3f8;
+      padding: 4px;
+      border-top: 1px solid #ccc;
+    }
+    .account {
+      background: #fff;
+      border: 1px solid #888;
+      border-radius: 5px;
+      padding: 6px;
+      margin: 5px;
+      cursor: grab;
+      display: inline-block;
+    }
+    .dropzone {
+      min-height: 80px;
+      background: #f0f0f0;
+    }
+    .highlight {
+      background: #d1ffd1 !important;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #2a5d84;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 لعبة جدول تصنيف الحسابات</h1>
+  <p>اسحب الحساب وضعه تحت النوع الصحيح (أصول – خصوم – حقوق ملكية – إيرادات – مصروفات)</p>
+
+  <div id="accounts">
+    <!-- ✅ 50 حساب جاهز -->
+    <!-- الأصول -->
+    <div class="account" draggable="true" data-type="أصول">البنك</div>
+    <div class="account" draggable="true" data-type="أصول">الصندوق</div>
+    <div class="account" draggable="true" data-type="أصول">العملاء</div>
+    <div class="account" draggable="true" data-type="أصول">أوراق القبض</div>
+    <div class="account" draggable="true" data-type="أصول">المخزون</div>
+    <div class="account" draggable="true" data-type="أصول">الأراضي</div>
+    <div class="account" draggable="true" data-type="أصول">المباني</div>
+    <div class="account" draggable="true" data-type="أصول">الآلات والمعدات</div>
+    <div class="account" draggable="true" data-type="أصول">الأثاث</div>
+    <div class="account" draggable="true" data-type="أصول">السيارات</div>
+    <div class="account" draggable="true" data-type="أصول">مصروفات مدفوعة مقدماً</div>
+    <div class="account" draggable="true" data-type="أصول">الاستثمارات المالية</div>
+    <div class="account" draggable="true" data-type="أصول">السندات الحكومية</div>
+    <div class="account" draggable="true" data-type="أصول">الحاسب الآلي</div>
+    <div class="account" draggable="true" data-type="أصول">حقوق الامتياز</div>
+
+    <!-- الخصوم -->
+    <div class="account" draggable="true" data-type="خصوم">الموردين</div>
+    <div class="account" draggable="true" data-type="خصوم">أوراق الدفع</div>
+    <div class="account" draggable="true" data-type="خصوم">قرض طويل الأجل</div>
+    <div class="account" draggable="true" data-type="خصوم">قرض قصير الأجل</div>
+    <div class="account" draggable="true" data-type="خصوم">الدائنون المتنوعون</div>
+    <div class="account" draggable="true" data-type="خصوم">رواتب مستحقة الدفع</div>
+    <div class="account" draggable="true" data-type="خصوم">ضرائب مستحقة الدفع</div>
+    <div class="account" draggable="true" data-type="خصوم">فوائد مستحقة الدفع</div>
+    <div class="account" draggable="true" data-type="خصوم">إيجار مستحق الدفع</div>
+    <div class="account" draggable="true" data-type="خصوم">السلف المستلمة من العملاء</div>
+
+    <!-- حقوق الملكية -->
+    <div class="account" draggable="true" data-type="حقوق ملكية">رأس المال</div>
+    <div class="account" draggable="true" data-type="حقوق ملكية">الأرباح المحتجزة</div>
+    <div class="account" draggable="true" data-type="حقوق ملكية">جاري الشريك</div>
+    <div class="account" draggable="true" data-type="حقوق ملكية">احتياطي قانوني</div>
+    <div class="account" draggable="true" data-type="حقوق ملكية">احتياطي طوارئ</div>
+
+    <!-- الإيرادات -->
+    <div class="account" draggable="true" data-type="إيرادات">المبيعات</div>
+    <div class="account" draggable="true" data-type="إيرادات">إيرادات خدمات</div>
+    <div class="account" draggable="true" data-type="إيرادات">خصم مسموح به مكتسب</div>
+    <div class="account" draggable="true" data-type="إيرادات">إيرادات استثمار</div>
+    <div class="account" draggable="true" data-type="إيرادات">إيرادات فوائد</div>
+    <div class="account" draggable="true" data-type="إيرادات">إيرادات إيجار</div>
+    <div class="account" draggable="true" data-type="إيرادات">أرباح بيع أصول ثابتة</div>
+
+    <!-- المصروفات -->
+    <div class="account" draggable="true" data-type="مصروفات">رواتب الموظفين</div>
+    <div class="account" draggable="true" data-type="مصروفات">الإيجار</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات الكهرباء</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات المياه</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات الهاتف والإنترنت</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات النقل والتوصيل</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات دعاية وإعلان</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات الصيانة</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات إهلاك</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات فوائد</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات ضريبية</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات تدريب</div>
+    <div class="account" draggable="true" data-type="مصروفات">مصروفات تأمين</div>
+  </div>
+
+  <table>
+    <tr>
+      <th>أصول</th>
+      <th>خصوم</th>
+      <th>حقوق ملكية</th>
+      <th>إيرادات</th>
+      <th>مصروفات</th>
+    </tr>
+    <tr>
+      <td class="dropzone" data-type="أصول"></td>
+      <td class="dropzone" data-type="خصوم"></td>
+      <td class="dropzone" data-type="حقوق ملكية"></td>
+      <td class="dropzone" data-type="إيرادات"></td>
+      <td class="dropzone" data-type="مصروفات"></td>
+    </tr>
+    <tr>
+      <td class="desc">تمثل ما تملكه المنشأة (نقدية، مخزون، أصول ثابتة)</td>
+      <td class="desc">التزامات على المنشأة للغير (قروض، دائنين)</td>
+      <td class="desc">حقوق الملاك في المنشأة (رأس المال، الأرباح)</td>
+      <td class="desc">دخل المنشأة من أنشطتها (مبيعات، خدمات)</td>
+      <td class="desc">التكاليف التي تتحملها المنشأة لمزاولة النشاط</td>
+    </tr>
+  </table>
+
+  <button onclick="checkAnswers()">تحقق من الإجابات ✅</button>
+  <div id="result"></div>
+
+  <script>
+    const accounts = document.querySelectorAll(".account");
+    const dropzones = document.querySelectorAll(".dropzone");
+    let dragged = null;
+
+    // 🖱️ دعم الكمبيوتر
+    accounts.forEach(acc => {
+      acc.addEventListener("dragstart", () => { dragged = acc; });
+    });
+
+    dropzones.forEach(zone => {
+      zone.addEventListener("dragover", e => {
+        e.preventDefault();
+        zone.classList.add("highlight");
+      });
+      zone.addEventListener("dragleave", () => {
+        zone.classList.remove("highlight");
+      });
+      zone.addEventListener("drop", () => {
+        zone.classList.remove("highlight");
+        if (dragged) {
+          zone.appendChild(dragged);
+          dragged = null;
+        }
+      });
+    });
+
+    // 📱 دعم الموبايل (iOS / Android)
+    accounts.forEach(acc => {
+      acc.addEventListener("touchstart", e => {
+        dragged = acc;
+        acc.style.opacity = "0.5";
+      });
+
+      acc.addEventListener("touchend", e => {
+        acc.style.opacity = "1";
+        const touch = e.changedTouches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (target && target.classList.contains("dropzone")) {
+          target.appendChild(dragged);
+        }
+        dragged = null;
+      });
+    });
+
+    function checkAnswers() {
+      let correct = 0;
+      let total = accounts.length;
+      dropzones.forEach(zone => {
+        const type = zone.getAttribute("data-type");
+        zone.querySelectorAll(".account").forEach(acc => {
+          if (acc.getAttribute("data-type") === type) {
+            correct++;
+            acc.style.border = "2px solid green";
+          } else {
+            acc.style.border = "2px solid red";
+          }
+        });
+      });
+      document.getElementById("result").innerHTML =
+        `إجابتك الصحيحة: ${correct} من ${total}`;
+    }
+  </script>
+
+</body>
+</html>
